@@ -3,4 +3,6 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   resources :categoria
+  
+  root 'home#index'
 end
