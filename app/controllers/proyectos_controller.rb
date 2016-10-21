@@ -1,10 +1,11 @@
 class ProyectosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_proyecto, only: [:show, :edit, :update, :destroy]
-
   # GET /proyectos
   # GET /proyectos.json
   def index
     @proyectos = Proyecto.all
+    @titulo = 'Listado de proyectos'
   end
 
   # GET /proyectos/1
@@ -15,6 +16,9 @@ class ProyectosController < ApplicationController
   # GET /proyectos/new
   def new
     @proyecto = Proyecto.new
+    @titulo = 'Registra tu necesidad'
+    @currentUser = current_user.id
+    @categoria = Categorium.order('categoria_nombre').where('categoria_id ISNULL').all
   end
 
   # GET /proyectos/1/edit
@@ -24,7 +28,7 @@ class ProyectosController < ApplicationController
   # POST /proyectos
   # POST /proyectos.json
   def create
-    @proyecto = Proyecto.new(proyecto_params)
+    #@proyecto = Proyecto.new(proyecto_params)
 
     respond_to do |format|
       if @proyecto.save
@@ -69,6 +73,11 @@ class ProyectosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proyecto_params
-      params[:proyecto]
+      params.require(:proyecto).permit(:proyecto_nombre, :proyecto_cantidad_beneficiarios, :proyecto_descripcion_corta, :proyecto_direccion,
+                                       :proyecto_posee_transporte, :categoria_id, :proyecto_direccion, :proyecto_porcent, :proyecto_tags
+        )
+    end
+
+    def registra
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017162607) do
+ActiveRecord::Schema.define(version: 20161021024045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20161017162607) do
     t.integer  "proyecto_apoyado",                limit: 8
     t.boolean  "proyecto_posee_transporte",                 default: false, null: false
     t.string   "proyecto_tags"
+    t.string   "proyecto_direccion"
   end
 
   create_table "recurso", id: false, force: true do |t|
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 20161017162607) do
     t.integer  "role_id",                limit: 8, default: 1
     t.boolean  "vehiculo"
     t.string   "documento"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

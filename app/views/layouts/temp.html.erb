@@ -9,40 +9,36 @@
   <% else %>
    <%= render :partial => '/layouts/menu_head' %>
   <% end %>
- <div class="body-overlay"></div>
  <div id="wrapper" class="clearfix">
-  <!-- Start main-content -->
-  <footer data-bg-color="#25272e" class="footer pb-0" id="footer" style="background-color: rgb(37, 39, 46) ! important; background-repeat: repeat ! important; background-attachment: scroll ! important; background-position: 0% 0% ! important; background-clip: border-box ! important; background-origin: padding-box ! important; background-size: auto auto ! important;">
+  <footer class="footer" style="background-repeat: repeat ! important; background-attachment: scroll ! important; background-position: 0% 0% ! important; background-clip: border-box ! important; background-origin: padding-box ! important; background-size: auto auto ! important;">
     <div class="container-fluid bg-theme-colored p-20">
       <div class="row text-center">
-        <div class="col-md-12">
-          <p class="text-white font-11 m-0">Copyright &copy;2015 ThemeMascot. All Rights Reserved</p>
+        <div class="col-md-10">
+          <p class="text-white font-15 m-0 text-right">Si necesitas reconstruir tu hogar, registra tu necesidad ahora <button class="btn btn-default btn-flat btn-theme-colored">Registrá</button></p>
         </div>
       </div>
     </div>
   </footer>
   <div class="main-content">
- 
+
    <%= yield %>
- 
-    <!-- Section: home -->
-    <section id="home" class="divider fullscreen no-bg layer-overlay overlay-dark-light">
-      <div class="display-table">
-        <div class="display-table-cell">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <div class="inline-block pb-60 pl-40 pr-40 pt-90">
-                  <h1 class="text-uppercase text-white font-raleway font-weight-800 font-78 mb-10 mt-0">Child <span class="text-theme-colored">Care</span></h1>
-                  <p class="font-16 text-white text-left pull-left font-raleway letter-spacing-1 mb-20 ml-10">Every day we bring hope to millions of children in the<br> world's as a sign of God's unconditional love.</p>
-                  <a class="btn btn-colored btn-theme-colored btn-flat pull-right" href="#">Donate Now</a> 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+   <% if @titulo != nil %>
+   <!-- Section: inner-header -->
+   <section class="inner-header divider layer-overlay overlay-dark" data-bg-img="http://placehold.it/1920x1280">
+    <div class="container pt-30 pb-30">
+     <!-- Section Content -->
+     <div class="section-content text-center">
+      <div class="row"> 
+       <div class="col-md-6 col-md-offset-3 text-center">
+        <h1 class="text-theme-colored font-36"><%= @titulo.html_safe %></h1>
+       </div>
       </div>
-    </section>
+     </div>
+    </div>      
+   </section>
+   <% end %>
+   
     
     <!-- Section: Causes -->
     <section id="causes">

@@ -1,35 +1,57 @@
-<div id='map_simple' class='map'> </div>
+    <section id="mapaDonacion" class="divider bg-lighter">
+      <div class="container-fluid ">
+        <div class="section-content">
+          <div class="row">
+            <div class=" col-md-12 ">
+              <div id="Map" class="container pb-80" style="width: 100%; height: 600px; margin: 0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 <script>
-L.mapbox.accessToken = 'pk.eyJ1IjoiYmFyYW5kaWdveWVuIiwiYSI6ImNpdWZ6dDd0MjAwaDMzM3AyOXhzMmc1eHUifQ.rsdkvjcgmrKAkD_M-A7sHQ';
-var geojson = [
-  {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-77.031952, 38.913184]
-    },
-    properties: {
-      'marker-color': '#3ca0d3',
-      'marker-size': 'large',
-      'marker-symbol': 'rocket'
-    }
-  },
-  {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-122.413682, 37.775408]
-    },
-    properties: {
-      'marker-color': '#63b6e5',
-      'marker-size': 'large',
-      'marker-symbol': 'rocket'
-    }
-  }
-];
+  var cities = new L.LayerGroup();
+  L.marker([0.968179, -79.65172]).bindPopup('Albergues habilitados en Esmeraldas: 85').addTo(cities),
+  L.marker([0.611614, -80.020655]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([0.073118, -80.051393]).bindPopup('Albergues habilitados en Pedernales: 5153').addTo(cities),
+  L.marker([0.006254, -79.395339]).bindPopup('Albergues habilitados en Jama: 1990').addTo(cities),
+  L.marker([-0.202016, -80.263477]).bindPopup('Albergues habilitados en Concordia: 160').addTo(cities),
+  L.marker([-0.326375, -78.456373]).bindPopup('Albergues habilitados en Rumiñahui: 230').addTo(cities),
+  L.marker([-0.180653, -78.467838]).bindPopup('Albergues habilitados en Quito: 6').addTo(cities),
+  L.marker([-1.590472, -78.999515]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-2.226710, -80.859499]).bindPopup('Albergues habilitados en Santa Elena: 30').addTo(cities),
+  L.marker([-1.801926, -79.534646]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-1.054723, -80.45249]).bindPopup('Albergues habilitados en Babahoyo: 254').addTo(cities),
+  L.marker([-0.967653, -80.70891]).bindPopup('Albergues habilitados en Manta: 60').addTo(cities),
+  L.marker([-1.278271, -80.424307]).bindPopup('Albergues habilitados en Manta: 60').addTo(cities),
+  L.marker([-0.967653, -80.70891]).bindPopup('Albergues habilitados en Sucre: 500').addTo(cities),
+  L.marker([-1.278271, -80.424307]).bindPopup('Albergues habilitados en Chone: 8563').addTo(cities),
+  L.marker([-0.714002, -80.109357 ]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-0.604727, -80.402048]).bindPopup('Albergues habilitados San Vicente: 2500').addTo(cities);
 
-var mapSimple = L.mapbox.map('map_simple', 'mapbox.light')
-  .setView([37.8, -96], 4);
-var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);
-mapSimple.scrollWheelZoom.disable();
+
+  var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
+
+  var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+  var map = L.map('Map', {
+    center: [-1.472, -78.827],
+    zoom: 7,
+    layers: [grayscale, cities]
+  });
+
+  var baseLayers = {
+    "Grayscale": grayscale,
+    "Streets": streets
+  };
+
+  var overlays = {
+    "Alvergues": cities
+  };
+
+  L.control.layers(baseLayers, overlays).addTo(map);
 </script>

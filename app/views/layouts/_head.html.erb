@@ -37,7 +37,7 @@
   <!-- CSS | Responsive media queries -->
   <%= stylesheet_link_tag 'responsive.css' %>
   <!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
-  <!-- <%= stylesheet_link_tag 'style.css' %>-->
+  <%= stylesheet_link_tag 'style.css' %>
 
   <!-- CSS | Theme Color -->
   <%= stylesheet_link_tag 'colors/theme-skin-yellow.css' %>
@@ -60,5 +60,5 @@
 
   <!-- HEAD principal -->
   <%= stylesheet_link_tag 'main.css' %>
-  <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-  <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+  <%= stylesheet_link_tag 'leaflet/leaflet.css' %>
+  <%= javascript_include_tag 'leaflet/leaflet.js' %>
