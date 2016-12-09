@@ -1,0 +1,102 @@
+<%= form_for(@proyecto, html: { multipart: true })   do |f| %>
+  <% if @proyecto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@proyecto.errors.count, "error") %> prohibited this proyecto from being saved:</h2>
+
+      <ul>
+      <% @proyecto.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#one-tab" data-toggle="tab"><h4><b>Datos personales</b></h4></a></li>
+            <li><a href="#two-tab" data-toggle="tab"><h4><b>¿Que necesitas?</b></h4></a></li>
+            <li><a href="#tree-tab" data-toggle="tab"><h4><b>Donde lo necesitas</b></h4></a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="one-tab">
+             <div class="form-group mb-20">
+              <%= f.label :nombre_de_la_peticion, for:"form_name" %>
+              <%= f.text_field :proyecto_nombre, placeholder: "nombre", class: "form-control" %><br />
+              <%= f.label :descripcion, for:"form_name" %>
+              <%= f.text_area :proyecto_descripcion_corta, class: "form-control" %><br />
+              <%= f.label :cantidad_de_beneficiados, for:"form_name" %>
+              <%= f.number_field :proyecto_cantidad_beneficiarios, class: "form-control", min: "1" %><br />
+              <label for="form_name">¿Puede ir usted por las donaciones? <%= f.check_box :proyecto_posee_transporte %></label><br />
+              <%= f.label :imagen_descriptiva, for:"form_name" %>
+              <%= f.file_field :proyecto_tags, class: "form-control", min: "1" %><br />
+             </div> 
+            </div>
+            <div class="tab-pane fade in" id="two-tab">
+             <div class="form-group mb-20">
+              <table cellpadding="0" cellspacing="0" border="0">
+               <thead><tr><th></th><th><b>Recurso</b></th></tr></thead>
+               <tbody>
+               <% @categoria.each do |c| %>
+               <tr><td></td><td><b><%= c.categoria_nombre %></b></td></tr>
+               <% @c = Categorium.order('categoria_nombre').where(categoria_id: c.id).all %>
+               <% @c.each do |d| %>
+               <tr><td><%= f.number_field :proyecto_porcent, min: "0", size: "4" %></td><td><%= d.categoria_nombre %></td></tr>
+               <% end %>
+               <% end %>
+               </tbody>
+              </table>
+              <%= f.label :cantidad_de_beneficiados, for:"form_name" %>
+              <%= f.select :categoria_id, Categorium.order('categoria_nombre').where('categoria_id ISNULL').all.collect { |p| [ p.categoria_nombre, p.id ] }, include_blank: false, class: "form-control" %>
+             </div> 
+            </div>
+            <div class="tab-pane fade in" id="tree-tab">
+             <div class="form-group mb-20">
+              <%= f.label :direccion, for:"form_name" %>
+              <%= f.text_field :proyecto_direccion, class: "form-control" %><br />
+              <%= f.label :donde_lo_necesitas, for:"form_name" %>
+              <div id="mapid" style="width: 100%; height: 400px;"></div>
+             </div>
+          
+            </div>
+           <%= f.submit "Registrar", class:"btn btn-dark btn-theme-colored btn-flat mr-5", data: { confirm: 'Confirma la operación ?' } %>
+           <button class="btn btn-default btn-flat btn-theme-colored" type="reset">Restablecer</button>
+           <%= link_to 'Regresar', proyectos_path, class:"btn btn-default btn-flat btn-theme-colored" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+
+<script>
+
+  var mymap = L.map('mapid').setView([-1.472, -78.827], 7);
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    id: 'mapbox.streets'
+  }).addTo(mymap);
+
+  L.marker([-1.472, -78.827]).addTo(mymap)
+    .bindPopup("<b>Donde vamos!</b>").openPopup();
+
+  var popup = L.popup();
+
+  function onMapClick(e) {
+    popup
+      .setLatLng(e.latlng)
+      .setContent("You clicked the map at " + e.latlng.toString())
+      .openOn(mymap);
+    document.getElementById("proyecto_proyecto_nombre").value = e.latlng.lat.toString();
+  }
+
+  mymap.on('click', onMapClick);
+
+</script>

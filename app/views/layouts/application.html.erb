@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+ <head>
+  <%= render :partial => '/layouts/head' %>
+ </head>
+ <body class="has-side-panel side-panel-right fullwidth-page side-push-panel">
+  <% if controller_name == 'home' && action_name == 'index' %>
+   <%= render :partial => '/layouts/menu_logo' %>
+  <% else %>
+   <%= render :partial => '/layouts/menu_head' %>
+  <% end %>
+ <div id="wrapper" class="clearfix">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-error">
+      <%= value %>
+    </div>
+  <% end %>
+  <div class="main-content">
+   <% if @titulo != nil %>
+
+   <!-- Section: inner-header -->
+   <section class="inner-header divider layer-overlay overlay-dark" >
+    <div class="container pt-30 pb-30">
+     <!-- Section Content -->
+     <div class="section-content text-center">
+      <div class="row"> 
+       <div class="col-md-6 col-md-offset-3 text-center">
+        <h1 class="text-theme-colored font-36"><%= @titulo.html_safe %></h1>
+       </div>
+      </div>
+     </div>
+    </div>      
+   </section>
+   <% end %>
+
+   <%= yield %>
+   </div>
+   <!-- end main-content -->
+  
+  
+   <%= render :partial => '/layouts/footer' %>
+   <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+ </div>
+ <!-- end wrapper -->
+
+  <!-- Footer Scripts -->
+  <!-- JS | Custom script for all pages -->
+  <%= javascript_include_tag 'custom.js' %>
+
+ </body>
+</html>

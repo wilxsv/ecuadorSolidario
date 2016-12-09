@@ -1,0 +1,150 @@
+    <section id="mapaDonacion" class="divider bg-lighter">
+      <div class="container-fluid ">
+        <div class="section-content">
+          <div class="row">
+            <div class=" col-md-12 ">
+              <div id="Map" class="container pb-80" style="width: 100%; height: 600px; margin: 0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<script>
+  var cities = new L.LayerGroup();
+  L.marker([0.968179, -79.65172]).bindPopup('Albergues habilitados en Esmeraldas: 85').addTo(cities),
+  L.marker([0.611614, -80.020655]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([0.073118, -80.051393]).bindPopup('Albergues habilitados en Pedernales: 5153').addTo(cities),
+  L.marker([0.006254, -79.395339]).bindPopup('Albergues habilitados en Jama: 1990').addTo(cities),
+  L.marker([-0.202016, -80.263477]).bindPopup('Albergues habilitados en Concordia: 160').addTo(cities),
+  L.marker([-0.326375, -78.456373]).bindPopup('Albergues habilitados en Rumiñahui: 230').addTo(cities),
+  L.marker([-0.180653, -78.467838]).bindPopup('Albergues habilitados en Quito: 6').addTo(cities),
+  L.marker([-1.590472, -78.999515]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-2.226710, -80.859499]).bindPopup('Albergues habilitados en Santa Elena: 30').addTo(cities),
+  L.marker([-1.801926, -79.534646]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-1.054723, -80.45249]).bindPopup('Albergues habilitados en Babahoyo: 254').addTo(cities),
+  L.marker([-0.967653, -80.70891]).bindPopup('Albergues habilitados en Manta: 60').addTo(cities),
+  L.marker([-1.278271, -80.424307]).bindPopup('Albergues habilitados en Manta: 60').addTo(cities),
+  L.marker([-0.967653, -80.70891]).bindPopup('Albergues habilitados en Sucre: 500').addTo(cities),
+  L.marker([-1.278271, -80.424307]).bindPopup('Albergues habilitados en Chone: 8563').addTo(cities),
+  L.marker([-0.714002, -80.109357 ]).bindPopup('Albergues habilitados en Guaranda: 99').addTo(cities),
+  L.marker([-0.604727, -80.402048]).bindPopup('Albergues habilitados San Vicente: 2500').addTo(cities);
+
+
+  var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
+
+  var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+  var map = L.map('Map', {
+    center: [-1.472, -78.827],
+    zoom: 7,
+    layers: [grayscale, cities]
+  });
+
+  var baseLayers = {
+    "Grayscale": grayscale,
+    "Streets": streets
+  };
+
+  var overlays = {
+    "Alvergues": cities
+  };
+
+  L.control.layers(baseLayers, overlays).addTo(map);
+</script>
+<!-- Section: Causes -->
+    <section id="causes">
+      <div class="container pb-80">
+        <div class="section-title text-center">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <h3 class="text-uppercase mt-0">¿Qué tienes tu para donar?</h3>
+              <p>Ayuda a reconstruir estos hogares<br> 
+               <button type="submit" class="btn btn-flat btn-dark" >Filtrar por categorias</button>  <%= link_to 'Buscar hogares por reconstruir', proyectos_path, class:"btn btn-default btn-flat btn-theme-colored" %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row mtli-row-clearfix">
+          <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="causes bg-lighter box-hover-effect effect1 maxwidth500 mb-sm-30">
+              <div class="thumb">
+                <%= image_tag "map-marker.png", class:"img-fullwidth" %>
+              </div>
+              <div class="progress-item mt-0">
+                <div class="progress mb-0">
+                  <div class="progress-bar" data-percent="84"></div>
+                </div>
+              </div>
+              <div class="causes-details clearfix border-bottom p-15 pt-10">
+                <h4><a href="#"><b>Hogar de Pablo Cordova</b></a></h4>
+                <p>La casa de mi familia era muy linda. Tenia un jardin con flores, llego el terremoto y destruyo parte de mi casa. ahora ya no es la misma.</p>
+                <ul class="list-inline clearfix mt-20">
+                  <li class="pull-left pr-0"><%= image_tag "map-marker.png" %>Manabí, Ecuador</li>
+                </ul>
+                <div class="mt-10">
+                 <a class="btn btn-dark btn-theme-colored btn-flat btn-sm pull-left mt-10" href="#">Donar a esta causa</a>
+                 <div class="pull-right mt-15"><i class="fa fa-heart-o text-theme-colored"></i> 97 donantes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mtli-row-clearfix">
+          <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="causes bg-lighter box-hover-effect effect1 maxwidth500 mb-sm-30">
+              <div class="thumb">
+                <%= image_tag "map-marker.png", class:"img-fullwidth" %>
+              </div>
+              <div class="progress-item mt-0">
+                <div class="progress mb-0">
+                  <div class="progress-bar" data-percent="84"></div>
+                </div>
+              </div>
+              <div class="causes-details clearfix border-bottom p-15 pt-10">
+                <h4><a href="#"><b>Hogar de Pablo Cordova</b></a></h4>
+                <p>La casa de mi familia era muy linda. Tenia un jardin con flores, llego el terremoto y destruyo parte de mi casa. ahora ya no es la misma.</p>
+                <ul class="list-inline clearfix mt-20">
+                  <li class="pull-left pr-0"><%= image_tag "map-marker.png" %>Manabí, Ecuador</li>
+                </ul>
+                <div class="mt-10">
+                 <a class="btn btn-dark btn-theme-colored btn-flat btn-sm pull-left mt-10" href="#">Donar a esta causa</a>
+                 <div class="pull-right mt-15"><i class="fa fa-heart-o text-theme-colored"></i> 97 donantes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mtli-row-clearfix">
+          <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="causes bg-lighter box-hover-effect effect1 maxwidth500 mb-sm-30">
+              <div class="thumb">
+                <%= image_tag "map-marker.png", class:"img-fullwidth" %>
+              </div>
+              <div class="progress-item mt-0">
+                <div class="progress mb-0">
+                  <div class="progress-bar" data-percent="84"></div>
+                </div>
+              </div>
+              <div class="causes-details clearfix border-bottom p-15 pt-10">
+                <h4><a href="#"><b>Hogar de Pablo Cordova</b></a></h4>
+                <p>La casa de mi familia era muy linda. Tenia un jardin con flores, llego el terremoto y destruyo parte de mi casa. ahora ya no es la misma.</p>
+                <ul class="list-inline clearfix mt-20">
+                  <li class="pull-left pr-0"><%= image_tag "map-marker.png" %>Manabí, Ecuador</li>
+                </ul>
+                <div class="mt-10">
+                 <a class="btn btn-dark btn-theme-colored btn-flat btn-sm pull-left mt-10" href="#">Donar a esta causa</a>
+                 <div class="pull-right mt-15"><i class="fa fa-heart-o text-theme-colored"></i> 97 donantes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<%= render 'estadistica' %>

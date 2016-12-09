@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  database: test
+  pool: 6
+  username: dtic
+  password: dtic
+
+development:
+  <<: *default
+#  database: db/development.sqlite3
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
